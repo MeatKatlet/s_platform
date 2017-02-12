@@ -6,8 +6,11 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Enquiry;
+use AppBundle\Form\EnquiryType;
 
 
 class LuckyController extends Controller
@@ -55,5 +58,16 @@ class LuckyController extends Controller
         return $this->render('lucky/number.html.twig', array(
             'number' => $number,
         ));
+    }
+
+    /**
+     * @Route("/lucky/form")
+     */
+
+    public function contactAction(Request $request)
+    {
+        $enquiry = new Enquiry();
+
+
     }
 }
