@@ -68,6 +68,32 @@ class LuckyController extends Controller
     {
         $enquiry = new Enquiry();
 
+        $form = $this->createForm(EnquiryType::class, $enquiry);
 
+        if ($request->isMethod($request::METHOD_POST)) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Тема письма')
+                    ->setFrom('123@mail.ru')
+                    ->setTo($this->container->getParameter('blogger_blog.emails.contact_email'))
+                    ->setBody($this->renderView('Page/contactEmail.txt.twig', array('enquiry' => $enquiry)));
+
+
+                $this->get('mailer')->send($message);
+
+                $this->get('session')->getFlashBag()->add('blogger-notice', 'Форма отправлена, спасибо!');
+
+                //Перенаправляем чтобы при обновлении страницы данные не отправлялись  снова
+
+                return $this->redirect($this->generateUrl('BloggerBlogBundle_contact'));
+
+            }
+
+        }
+
+        return $this->render('Page/contact.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 }
