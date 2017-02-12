@@ -64,7 +64,7 @@ class LuckyController extends Controller
      * @Route("/lucky/form")
      */
 
-    public function contactAction(Request $request)
+    public function formAction(Request $request)
     {
         $enquiry = new Enquiry();
 

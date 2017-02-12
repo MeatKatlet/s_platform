@@ -1,3 +1,10 @@
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+
+
+BloggerBlogBundle_contact:
+    path:  /form
+
+    requirements:
+        methods:  GET|POST
